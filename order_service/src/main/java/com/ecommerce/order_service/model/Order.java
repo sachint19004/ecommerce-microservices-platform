@@ -1,0 +1,32 @@
+package com.ecommerce.order_service.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import java.util.List;
+
+@Entity
+@Table(name = "t_orders")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Order {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private String orderNumber;
+    
+    // --- NEW FIELD ---
+    private double totalPrice;
+    // -----------------
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<OrderLineItems> orderLineItemsList;
+    
+    private Long userId; 
+}
