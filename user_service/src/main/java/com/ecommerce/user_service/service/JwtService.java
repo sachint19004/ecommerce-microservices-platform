@@ -1,6 +1,8 @@
-package com.ecommerce.user_service.service; // Or com.ecommerce.userservice.service
+package com.ecommerce.user_service.service;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm; // Import this
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 
@@ -10,25 +12,24 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    private final String SECRET_KEY = "THISISASECRETAUTHORIZATIONKEY256"; 
-// Note: 32 characters long
+    // Ensure this key is at least 32 characters long
+    private final String SECRET_KEY = "404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970"; 
     private final long EXPIRATION_TIME = 1000 * 60 * 60; // 1 hour
 
-    public String generateToken(String email) {
+    public String generateToken(String userID) {
         
-        // Get the secret key
-        Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+        // 1. Create Key
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        Key key = Keys.hmacShaKeyFor(keyBytes);
 
-        // Get the current time and expiration time
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + EXPIRATION_TIME);
 
-        // --- THIS IS THE UPDATED CODE ---
         return Jwts.builder()
-            .subject(email)                 // Replaces .setSubject()
-            .issuedAt(now)                  // Replaces .setIssuedAt()
-            .expiration(expiryDate)         // Replaces .setExpiration()
-            .signWith(key)                  // Replaces .signWith(key, SignatureAlgorithm.HS256)
+            .setSubject(userID)           
+            .setIssuedAt(now)            
+            .setExpiration(expiryDate)   
+            .signWith(key, SignatureAlgorithm.HS256) //Added Algorithm explicitly
             .compact();
     }
 }

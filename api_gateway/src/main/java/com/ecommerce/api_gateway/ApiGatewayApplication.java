@@ -1,4 +1,4 @@
-package com.ecommerce.api_gateway;
+ package com.ecommerce.api_gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

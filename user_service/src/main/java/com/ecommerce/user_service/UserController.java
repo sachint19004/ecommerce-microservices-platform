@@ -49,7 +49,7 @@ public class UserController {
 
             // --- THIS IS THE NEW PART ---
             // 1. Generate the token
-            String token = jwtService.generateToken(user.getEmail());
+            String token = jwtService.generateToken(String.valueOf(user.getId()));
 
             // 2. Create a map to hold the token
             Map<String, String> response = new HashMap<>();

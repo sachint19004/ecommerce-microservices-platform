@@ -1,11 +1,20 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-.classpath
+# IDE specific files
+.idea/
+.vscode/
+*.iml
 .project
 .settings
-.vscode/
+.classpath
+
+# Build files
+**/target/
+**/build/
 *.class
+
+# Logs and Temp
 *.log
 .DS_Store
+Thumbs.db
+
+# Database (Postgres doesn't usually store data in the project folder, but just in case)
+*.db
